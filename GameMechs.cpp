@@ -7,7 +7,8 @@ GameMechs::GameMechs()
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
-    
+    boardSizeX=boardX;
+    boardSizeY = boardY;
 }
 
 // do you need a destructor?
@@ -18,12 +19,12 @@ GameMechs::~GameMechs()
 
 bool GameMechs::getExitFlagStatus() const
 {
-
+    return exitFlag;
 }
 
 bool GameMechs::getLoseFlagStatus() const
 {
-
+    return loseFlag;
 }
     
 
@@ -55,7 +56,7 @@ int GameMechs::getBoardSizeY() const
 
 void GameMechs::setExitTrue()
 {
-
+    exitFlag = true;
 }
 
 void GameMechs::setLoseFlag()

@@ -21,7 +21,7 @@ class Player
         ~Player();
 
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
-        void updatePlayerDir();
+        void updatePlayerDir(char input);
         void movePlayer();
 
         // More methods to be added here

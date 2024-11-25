@@ -5,6 +5,7 @@ Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
+    
 
     // more actions to be included
 }
@@ -17,13 +18,44 @@ Player::~Player()
 
 objPos Player::getPlayerPos() const
 {
-    // return the reference to the playerPos arrray list
+    //mainGameMechsRef->
+
+    
 }
 
-void Player::updatePlayerDir()
+void Player::updatePlayerDir(char input)
 {
-        // PPA3 input processing logic          
-}
+        // PPA3 input processing logic
+    if(input != 0)  // if not null character
+    {
+        switch(input)
+        {                      
+            case ' ':  // exit
+                mainGameMechsRef->setExitTrue();
+                break;
+
+            case 'w':
+                if (myDir != DOWN){
+                    myDir = UP;
+                }
+                break;
+            
+            case 'a':
+                if (myDir !=RIGHT){
+                    myDir = LEFT;}
+                break;
+            
+            case 's':
+                if (myDir !=UP){
+                    myDir = DOWN;
+                }
+                break;
+            case 'd':
+                if (myDir != LEFT){
+                    myDir = RIGHT;
+                }
+                break;     
+}}}
 
 void Player::movePlayer()
 {

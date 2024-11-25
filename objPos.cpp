@@ -16,6 +16,35 @@ objPos::objPos(int xPos, int yPos, char sym)
     symbol = sym;
 }
 
+objPos::objPos(const objPos& other)
+{
+    pos = new Pos; // Allocate new memory
+    pos->x = other.pos->x;
+    pos->y = other.pos->y;
+    symbol = other.symbol;
+}
+
+objPos& objPos::operator=(const objPos& other)
+{
+    if (this == &other) // Check for self-assignment
+        return *this;
+
+    // Clean up existing resources
+    delete pos;
+
+    // Allocate new memory and copy data
+    pos = new Pos;
+    pos->x = other.pos->x;
+    pos->y = other.pos->y;
+    symbol = other.symbol;
+
+    return *this;
+}
+
+objPos::~objPos()
+{
+    delete pos; // Free allocated memory
+}
 // Respect the rule of six / minimum four
 // [TODO] Implement the missing special member functions to meet the minimum four rule
 

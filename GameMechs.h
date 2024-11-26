@@ -43,6 +43,8 @@ class GameMechs
         void incrementScore();
         
         // More methods should be added here
+        void increaseSpeed();//nealy added methods for speed of the game
+        void decreaseSpeed();
 };
 
 #endif

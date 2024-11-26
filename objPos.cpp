@@ -1,5 +1,5 @@
 #include "objPos.h"
-
+//complete
 objPos::objPos()
 {
     pos = new Pos;

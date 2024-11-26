@@ -1,5 +1,5 @@
 #include "objPosArrayList.h"
-#include <stdexcept> // For exception handling
+
 
 // Constructor: Initializes the list with maximum capacity
 objPosArrayList::objPosArrayList()

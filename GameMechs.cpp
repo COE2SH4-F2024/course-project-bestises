@@ -2,13 +2,22 @@
 
 GameMechs::GameMechs()
 {
-    
+    input = 0;
+    score = 0;
+    loseFlag = false;
+    exitFlag = false;
+    boardSizeX = 0;
+    boardSizeY = 0;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
     boardSizeX=boardX;
     boardSizeY = boardY;
+    input = 0;
+    score = 0;
+    loseFlag = false;
+    exitFlag = false;
 }
 
 // do you need a destructor?
@@ -30,27 +39,27 @@ bool GameMechs::getLoseFlagStatus() const
 
 char GameMechs::getInput() const
 {
-
+return input;
 }
 
 int GameMechs::getScore() const
 {
-
+return score;
 }
 
 void GameMechs::incrementScore()
 {
-    
+    score++;
 }
 
 int GameMechs::getBoardSizeX() const
 {
-
+return boardSizeX;
 }
 
 int GameMechs::getBoardSizeY() const
 {
-
+return boardSizeY;
 }
 
 
@@ -61,17 +70,18 @@ void GameMechs::setExitTrue()
 
 void GameMechs::setLoseFlag()
 {
-    
+    loseFlag=true;
 }
 
 void GameMechs::setInput(char this_input)
 {
-
+input = this_input;
 }
 
 void GameMechs::clearInput()
 {
-
+input = 0;
 }
+
 
 // More methods should be added here

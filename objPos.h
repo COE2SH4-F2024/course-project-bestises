@@ -1,6 +1,6 @@
 #ifndef OBJPOS_H
 #define OBJPOS_H
-
+//complete
 // Not really a C++ thing
 typedef struct 
 {

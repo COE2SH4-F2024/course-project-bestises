@@ -69,19 +69,19 @@ void Player::movePlayer()
     Pos* pos = playerPos.pos;
 
     if (myDir == UP){
-        pos->y = ((pos->y + height - 2) - 2) % (height - 2) + 1;
+        pos->y = ((pos->y + height) - 1) % (height); //+height % hright effectively accounts for negative mod
     }
 
     if (myDir == LEFT){
-        pos->x = ((pos->x + width - 2) - 2) % (width - 2) + 1;
+        pos->x = ((pos->x + width) - 1) % (width);
     }
 
     if (myDir == DOWN){
-        pos->y = pos->y % (height - 2) + 1;
+        pos->y = (pos->y + 1)% (height);
     }
 
     if (myDir == RIGHT){
-        pos->x = pos->x % (width - 2) + 1;
+        pos->x = (pos->x + 1)% (width);
     }
     void insertHead(objPos playerPos);//insert the head of snake at the new position
     mainGameMechsRef->incrementScore(); //increment moves

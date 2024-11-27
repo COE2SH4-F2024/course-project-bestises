@@ -83,5 +83,15 @@ void GameMechs::clearInput()
 input = 0;
 }
 
+void GameMechs::increaseSpeed()
+{
+    speed++;
+}
+
+void GameMechs::decreaseSpeed()
+{
+    speed--;
+}
+
 
 // More methods should be added here

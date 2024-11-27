@@ -1,12 +1,13 @@
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
+#include "Player.h"
+#include "GameMechs.h"
 
 using namespace std;
 
 #define DELAY_CONST 100000
 
-bool exitFlag;
 char game [9][18];
 void Initialize(void);
 void GetInput(void);
@@ -15,6 +16,8 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 objPos snake = objPos(0,0,'@');
+GameMechs gMech = GameMechs(18,9);
+Player player = Player(&gMech);
 
 
 int main(void)
@@ -22,7 +25,7 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(gMech.getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -41,19 +44,19 @@ void Initialize(void)
     
     MacUILib_clearScreen();
 
-    exitFlag = false;
 }
 
 void GetInput(void)
 {
-   
+    if (MacUILib_hasChar() != 0){
+        char input = MacUILib_getChar();
+        player.updatePlayerDir(input);
+    }
 }
 
 void RunLogic(void)
-{
-    
-    
-
+{ 
+    player.movePlayer();
 }
 
 void DrawScreen(void)
@@ -66,8 +69,10 @@ void DrawScreen(void)
             game[i][j]=' ';
         }
     }
-    
-    game[0][0]= snake.getSymbol();
+    objPos headPos = player.getPlayerPos();
+    int playerX = headPos.pos->x;
+    int playerY = headPos.pos->y;
+    game[playerY][playerX]= snake.getSymbol();
     MacUILib_clearScreen();
     MacUILib_printf("####################       Press P to increase speed, L to decrease. SPACE to exit, Control with WASD\n");
     
@@ -76,6 +81,7 @@ void DrawScreen(void)
     }
 
     MacUILib_printf("####################       ");
+    MacUILib_printf("board width is %d, height is %d",gMech.getBoardSizeX(),gMech.getBoardSizeY());
     
   
      

@@ -5,6 +5,9 @@ Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
+    playerPos = objPos(0,0,'@');
+    playerPosList = new objPosArrayList();
+    playerPosList->insertHead(playerPos);
     // more actions to be included
 }
 
@@ -12,7 +15,8 @@ Player::Player(GameMechs* thisGMRef)
 Player::~Player()
 {
     // delete any heap members here
-    delete mainGameMechsRef;
+    //delete mainGameMechsRef;
+    //delete playerPosList;
 }
 
 objPos Player::getPlayerPos() const
@@ -56,35 +60,48 @@ void Player::updatePlayerDir(char input)
             case 'p':
                 mainGameMechsRef->increaseSpeed();
                 break;
+
             case 'l':
                 mainGameMechsRef->decreaseSpeed();
-                break;     
+                break; 
+            case 'o':
+                grow();    
+                break; 
 }}}
 
-void Player::movePlayer()
-{
-    // PPA3 Finite State Machine logic
+void Player::movePlayer() {
     int height = mainGameMechsRef->getBoardSizeY();
     int width = mainGameMechsRef->getBoardSizeX();
-    Pos* pos = playerPos.pos;
 
-    if (myDir == UP){
-        pos->y = ((pos->y + height) - 1) % (height); //+height % hright effectively accounts for negative mod
-    }
+    // Update the head position based on direction
+    Pos* headPos = playerPos.pos;
+    if (myDir == UP) headPos->y = (headPos->y - 1 + height) % height;
+    if (myDir == DOWN) headPos->y = (headPos->y + 1) % height;
+    if (myDir == LEFT) headPos->x = (headPos->x - 1 + width) % width;
+    if (myDir == RIGHT) headPos->x = (headPos->x + 1) % width;
 
-    if (myDir == LEFT){
-        pos->x = ((pos->x + width) - 1) % (width);
-    }
+    // Add updated head position to the list
+    playerPos.symbol = '@';
+    playerPosList->insertHead(playerPos);
 
-    if (myDir == DOWN){
-        pos->y = (pos->y + 1)% (height);
+    // Remove the tail to maintain the correct length
+    if (playerPosList->getSize() > mainGameMechsRef->getScore() + 1) {
+        playerPosList->removeTail();
     }
-
-    if (myDir == RIGHT){
-        pos->x = (pos->x + 1)% (width);
-    }
-    void insertHead(objPos playerPos);//insert the head of snake at the new position
-    mainGameMechsRef->incrementScore(); //increment moves
 }
 
+
+
+
+void Player::grow() {
+    mainGameMechsRef->incrementScore();
+}
+
+int Player::getsnakesize(){
+    return playerPosList->getSize();
+}
+
+objPosArrayList Player::getPlayerBody(){
+    return *playerPosList;
+}
 // More methods to be added

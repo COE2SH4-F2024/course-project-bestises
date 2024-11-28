@@ -59,33 +59,35 @@ void RunLogic(void)
     player.movePlayer();
 }
 
-void DrawScreen(void)
-{
-    
-   int i;
-    int j;
-    for (i=0;i<9;i++){
-        for (j=0;j<18;j++){
-            game[i][j]=' ';
+void DrawScreen(void) {
+    // Step 1: Clear the board
+    for (int i = 0; i < gMech.getBoardSizeY(); i++) {
+        for (int j = 0; j < gMech.getBoardSizeX(); j++) {
+            game[i][j] = ' '; // Clear all positions
         }
     }
-    objPos headPos = player.getPlayerPos();
-    int playerX = headPos.pos->x;
-    int playerY = headPos.pos->y;
-    game[playerY][playerX]= snake.getSymbol();
-    MacUILib_clearScreen();
-    MacUILib_printf("####################       Press P to increase speed, L to decrease. SPACE to exit, Control with WASD\n");
-    
-    for (i=0;i<9;i++){
-        MacUILib_printf("#%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c#\n",game[i][0],game[i][1],game[i][2],game[i][3],game[i][4],game[i][5],game[i][6],game[i][7],game[i][8],game[i][9],game[i][10],game[i][11],game[i][12],game[i][13],game[i][14],game[i][15],game[i][16],game[i][17]);
+
+    // Step 2: Draw the snake
+    objPosArrayList body = player.getPlayerBody();
+    for (int i = 0; i < body.getSize(); i++) {
+        objPos segment = body.getElement(i);
+        game[segment.pos->y][segment.pos->x] = segment.getSymbol();
     }
 
-    MacUILib_printf("####################       ");
-    MacUILib_printf("board width is %d, height is %d",gMech.getBoardSizeX(),gMech.getBoardSizeY());
-    
-  
-     
+    // Step 3: Render the board
+    MacUILib_clearScreen();
+    MacUILib_printf("####################       Press P to increase speed, L to decrease. SPACE to exit, Control with WASD\n");
+    for (int i = 0; i < gMech.getBoardSizeY(); i++) {
+        MacUILib_printf("#");
+        for (int j = 0; j < gMech.getBoardSizeX(); j++) {
+            MacUILib_printf("%c", game[i][j]);
+        }
+        MacUILib_printf("#\n");
+    }
+    MacUILib_printf("####################\n");
+    MacUILib_printf("Score: %d   Speed: %d\n", gMech.getScore(), gMech.getBoardSizeX());
 }
+
 
 void LoopDelay(void)
 {
@@ -95,7 +97,7 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    //MacUILib_clearScreen();    
 
     MacUILib_uninit();
 }

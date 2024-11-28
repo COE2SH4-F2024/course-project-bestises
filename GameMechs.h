@@ -19,9 +19,9 @@ class GameMechs
 
         int boardSizeX;
         int boardSizeY;
-        int speed;
 
         objPos food;
+        int speed;
 
     public:
         GameMechs();

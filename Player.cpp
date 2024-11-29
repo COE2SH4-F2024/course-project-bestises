@@ -5,7 +5,7 @@ Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-    playerPos = objPos(0,0,'@');
+    playerPos = objPos(0,0,'O');
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(playerPos);
     // more actions to be included
@@ -81,7 +81,7 @@ void Player::movePlayer() {
     if (myDir == RIGHT) headPos->x = (headPos->x + 1) % width;
 
     // Add updated head position to the list
-    playerPos.symbol = '@';
+    playerPos.symbol = 'O';
     playerPosList->insertHead(playerPos);
 
     // Remove the tail to maintain the correct length

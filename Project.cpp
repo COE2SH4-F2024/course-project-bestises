@@ -74,8 +74,11 @@ void DrawScreen(void) {
         objPos segment = body.getElement(i);
         if (game[segment.pos->y][segment.pos->x]=='G'){
             gMech.setLoseFlag();
+            game[segment.pos->y][segment.pos->x] = 'X';
+            
+            
         }
-        if (first){
+        else if (first){
             game[segment.pos->y][segment.pos->x]='G';
             first=false;
         }
@@ -94,8 +97,8 @@ void DrawScreen(void) {
         MacUILib_printf("#\n");
     }
     MacUILib_printf("####################\n");
-    
-    MacUILib_printf("Score: %d   Speed: %d\n", gMech.getScore(), gMech.getBoardSizeX());
+
+    MacUILib_printf("Score: %d\n", gMech.getScore());
 }
 
 
@@ -107,7 +110,9 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
+    if (gMech.getLoseFlagStatus())
+    MacUILib_printf("you lose lsoer");
     //MacUILib_clearScreen();    
-
+   // free(game);
     MacUILib_uninit();
 }

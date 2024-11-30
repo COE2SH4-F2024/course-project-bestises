@@ -7,6 +7,7 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "objPosArrayList.h"
+#include "Food.h"
 
 class Player;  // Forward declaration
 
@@ -23,8 +24,9 @@ class GameMechs
         int boardSizeX;
         int boardSizeY;
 
-        objPos food;
+        Food food;
         Player* player;
+        bool eat;
         
         int speed;
         char game[9][18];
@@ -53,7 +55,7 @@ class GameMechs
         void increaseSpeed();//nealy added methods for speed of the game
         void decreaseSpeed();
         void clearBoard();
-        void addSnake();
+        bool addBoard();
         void drawScreen();
 };
 

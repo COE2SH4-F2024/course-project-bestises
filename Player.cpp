@@ -77,6 +77,7 @@ void Player::updatePlayerDir(char input)
 }
 
 void Player::movePlayer() {
+    
     int height = mainGameMechsRef->getBoardSizeY();
     int width = mainGameMechsRef->getBoardSizeX();
 

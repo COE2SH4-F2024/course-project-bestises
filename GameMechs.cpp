@@ -1,5 +1,8 @@
 #include "GameMechs.h"
 #include "Player.h"
+#include "Food.h"
+#include <random>
+
 
 GameMechs::GameMechs()
 {
@@ -20,6 +23,8 @@ GameMechs::GameMechs(int boardX, int boardY, Player* playerRef)
     loseFlag = false;
     exitFlag = false;
     player = playerRef; // Correctly assign to the member variable
+    //Food food = Food();
+    eat = false;
 }
 
 // do you need a destructor?
@@ -103,10 +108,13 @@ void GameMechs::clearBoard()
         }
     }
 }
-void GameMechs::addSnake()
-{
+bool GameMechs::addBoard()
+{   
+    eat = false;
     bool first = true;//draw head as another character
     objPosArrayList body = player->getPlayerBody();
+    
+    game[food.getYPos()][food.getXPos()] = food.getFood();
     for (int i = 0; i < body.getSize(); i++) {
         objPos segment = body.getElement(i);
         if (game[segment.pos->y][segment.pos->x]=='G'){
@@ -116,12 +124,24 @@ void GameMechs::addSnake()
             
         }
         else if (first){
+
             game[segment.pos->y][segment.pos->x]='G';
             first=false;
         }
     else{
         game[segment.pos->y][segment.pos->x] = segment.getSymbol();}
     }
+    
+    if (game[food.getYPos()][food.getXPos()]=='G'){
+        // food.generateFood(7,17);
+        while (game[food.getYPos()][food.getXPos()]!=' '){
+            food.generateFood(8,18);
+            eat = true;
+            
+            //game[food.getYPos()][food.getXPos()] = food.getFood();
+        }
+    }
+    return eat;
 }
 
 void GameMechs::drawScreen()

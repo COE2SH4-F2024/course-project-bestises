@@ -3,6 +3,8 @@
 #include "objPos.h"
 #include "Player.h"
 #include "GameMechs.h"
+#include <random>
+#include <time.h>
 
 using namespace std;
 
@@ -43,6 +45,8 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     player.setGmech(&gMech);
+    srand(time(0));
+    
 
 }
 
@@ -60,8 +64,12 @@ void RunLogic(void)
 }
 
 void DrawScreen(void) {
+    bool eat = false;
     gMech.clearBoard();
-    gMech.addSnake();
+    eat = gMech.addBoard();
+    if (eat){
+        player.grow();
+    }
     MacUILib_clearScreen();
     gMech.drawScreen();
 

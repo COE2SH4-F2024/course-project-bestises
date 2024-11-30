@@ -20,9 +20,10 @@ GameMechs::GameMechs(int boardX, int boardY, Player* playerRef)
     boardSizeY = boardY;
     input = 0;
     score = 0;
+    speed = 1;
     loseFlag = false;
     exitFlag = false;
-    player = playerRef; // Correctly assign to the member variable
+    player = playerRef; //assign member variable player to the argument playerRef
     //Food food = Food();
     eat = false;
 }
@@ -92,12 +93,23 @@ input = 0;
 
 void GameMechs::increaseSpeed()
 {
-    speed++;
+    if (speed < 5){
+        speed++;
+    }
 }
 
 void GameMechs::decreaseSpeed()
 {
-    speed--;
+    if (speed > 1){
+        speed--;
+    }
+}
+
+void GameMechs::delay()
+{
+    //calculate the delay, which is a negative quadratic based on speed
+    //this helps make the changes in speed feel more impactful
+    MacUILib_Delay(300000 - speed*speed*10000);
 }
 
 void GameMechs::clearBoard()
@@ -146,7 +158,7 @@ bool GameMechs::addBoard()
 
 void GameMechs::drawScreen()
 {
-    MacUILib_printf("####################       Press P to increase speed, L to decrease. SPACE to exit, Control with WASD %d\n",player->getPlayerBody().getSize());
+    MacUILib_printf("####################       Press P to increase speed, L to decrease. SPACE to exit, Control with WASD\n");
     for (int i = 0; i < boardSizeY; i++) {
         MacUILib_printf("#");
         for (int j = 0; j < boardSizeX; j++) {
@@ -156,7 +168,7 @@ void GameMechs::drawScreen()
     }
     MacUILib_printf("####################\n");
 
-    MacUILib_printf("Score: %d\n", score);
+    MacUILib_printf("Speed: %d, Score: %d\n", speed, score);
 }
 
 // More methods should be added here

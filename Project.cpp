@@ -72,55 +72,12 @@ void DrawScreen(void) {
     }
     MacUILib_clearScreen();
     gMech.drawScreen();
-
-    /*
-    // Step 1: Clear the board
-    for (int i = 0; i < gMech.getBoardSizeY(); i++) {
-        for (int j = 0; j < gMech.getBoardSizeX(); j++) {
-            game[i][j] = ' '; // Clear all positions
-        }
-    }
-
-    // Step 2: Draw the snake
-    bool first = true;//draw head as another character
-    objPosArrayList body = player.getPlayerBody();
-    for (int i = 0; i < body.getSize(); i++) {
-        objPos segment = body.getElement(i);
-        if (game[segment.pos->y][segment.pos->x]=='G'){
-            gMech.setLoseFlag();
-            game[segment.pos->y][segment.pos->x] = 'X';
-            
-            
-        }
-        else if (first){
-            game[segment.pos->y][segment.pos->x]='G';
-            first=false;
-        }
-    else{
-        game[segment.pos->y][segment.pos->x] = segment.getSymbol();}
-    }
-
-    // Step 3: Render the board
-    MacUILib_clearScreen();
-    
-    MacUILib_printf("####################       Press P to increase speed, L to decrease. SPACE to exit, Control with WASD %d\n",body.getSize());
-    for (int i = 0; i < gMech.getBoardSizeY(); i++) {
-        MacUILib_printf("#");
-        for (int j = 0; j < gMech.getBoardSizeX(); j++) {
-            MacUILib_printf("%c", game[i][j]);
-        }
-        MacUILib_printf("#\n");
-    }
-    MacUILib_printf("####################\n");
-
-    MacUILib_printf("Score: %d\n", gMech.getScore());
-    */
 }
 
 
 void LoopDelay(void)
 {
-    MacUILib_Delay(DELAY_CONST); // 0.1s delay
+    gMech.delay();
 }
 
 

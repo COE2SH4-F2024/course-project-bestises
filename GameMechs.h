@@ -54,6 +54,7 @@ class GameMechs
         // More methods should be added here
         void increaseSpeed();//nealy added methods for speed of the game
         void decreaseSpeed();
+        void delay();
         void clearBoard();
         bool addBoard();
         void drawScreen();

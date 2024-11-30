@@ -1,9 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "GameMechs.h"
 #include "objPos.h"
 #include "objPosArrayList.h"
+
+class GameMechs; //avoid circular dependency
 
 class Player
 {
@@ -16,7 +17,7 @@ class Player
     
     public:
         enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state        
-        Player(GameMechs* thisGMRef);
+        Player();
         ~Player();
         objPosArrayList getPlayerBody();
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
@@ -24,6 +25,7 @@ class Player
         void movePlayer();
         void grow();
         int getsnakesize();
+        void setGmech(GameMechs* thisGMRef);
 
         // More methods to be added here
 

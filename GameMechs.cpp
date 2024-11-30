@@ -1,4 +1,5 @@
 #include "GameMechs.h"
+#include "Player.h"
 
 GameMechs::GameMechs()
 {
@@ -10,14 +11,15 @@ GameMechs::GameMechs()
     boardSizeY = 0;
 }
 
-GameMechs::GameMechs(int boardX, int boardY)
+GameMechs::GameMechs(int boardX, int boardY, Player* playerRef)
 {
-    boardSizeX=boardX;
+    boardSizeX = boardX;
     boardSizeY = boardY;
     input = 0;
     score = 0;
     loseFlag = false;
     exitFlag = false;
+    player = playerRef; // Correctly assign to the member variable
 }
 
 // do you need a destructor?
@@ -93,5 +95,48 @@ void GameMechs::decreaseSpeed()
     speed--;
 }
 
+void GameMechs::clearBoard()
+{
+    for (int i = 0; i < boardSizeY; i++) {
+        for (int j = 0; j < boardSizeX; j++) {
+            game[i][j] = ' '; // Clear all positions
+        }
+    }
+}
+void GameMechs::addSnake()
+{
+    bool first = true;//draw head as another character
+    objPosArrayList body = player->getPlayerBody();
+    for (int i = 0; i < body.getSize(); i++) {
+        objPos segment = body.getElement(i);
+        if (game[segment.pos->y][segment.pos->x]=='G'){
+            setLoseFlag();
+            game[segment.pos->y][segment.pos->x] = 'X';
+            
+            
+        }
+        else if (first){
+            game[segment.pos->y][segment.pos->x]='G';
+            first=false;
+        }
+    else{
+        game[segment.pos->y][segment.pos->x] = segment.getSymbol();}
+    }
+}
+
+void GameMechs::drawScreen()
+{
+    MacUILib_printf("####################       Press P to increase speed, L to decrease. SPACE to exit, Control with WASD %d\n",player->getPlayerBody().getSize());
+    for (int i = 0; i < boardSizeY; i++) {
+        MacUILib_printf("#");
+        for (int j = 0; j < boardSizeX; j++) {
+            MacUILib_printf("%c", game[i][j]);
+        }
+        MacUILib_printf("#\n");
+    }
+    MacUILib_printf("####################\n");
+
+    MacUILib_printf("Score: %d\n", score);
+}
 
 // More methods should be added here

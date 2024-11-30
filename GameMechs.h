@@ -4,8 +4,11 @@
 #include <cstdlib>
 #include <time.h>
 
+#include "MacUILib.h"
 #include "objPos.h"
 #include "objPosArrayList.h"
+
+class Player;  // Forward declaration
 
 using namespace std;
 
@@ -21,11 +24,14 @@ class GameMechs
         int boardSizeY;
 
         objPos food;
+        Player* player;
+        
         int speed;
+        char game[9][18];
 
     public:
         GameMechs();
-        GameMechs(int boardX, int boardY);
+        GameMechs(int boardX, int boardY, Player* playerRef);
         ~GameMechs(); // is this one needed at all? Why or why not? no arrays do destroy
         
         bool getExitFlagStatus() const; 
@@ -46,6 +52,9 @@ class GameMechs
         // More methods should be added here
         void increaseSpeed();//nealy added methods for speed of the game
         void decreaseSpeed();
+        void clearBoard();
+        void addSnake();
+        void drawScreen();
 };
 
 #endif

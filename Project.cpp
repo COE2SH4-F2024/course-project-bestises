@@ -8,16 +8,15 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
-char game [9][18];
 void Initialize(void);
 void GetInput(void);
 void RunLogic(void);
 void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
-objPos snake = objPos(0,0,'@');
-GameMechs gMech = GameMechs(18,9);
-Player player = Player(&gMech);
+objPos snake = objPos();
+Player player = Player();
+GameMechs gMech = GameMechs(18,9,&player);
 
 
 int main(void)
@@ -32,7 +31,6 @@ int main(void)
         DrawScreen();
         LoopDelay();
     }
-
     CleanUp();
 
 }
@@ -43,6 +41,8 @@ void Initialize(void)
     MacUILib_init();
     
     MacUILib_clearScreen();
+
+    player.setGmech(&gMech);
 
 }
 
@@ -60,6 +60,12 @@ void RunLogic(void)
 }
 
 void DrawScreen(void) {
+    gMech.clearBoard();
+    gMech.addSnake();
+    MacUILib_clearScreen();
+    gMech.drawScreen();
+
+    /*
     // Step 1: Clear the board
     for (int i = 0; i < gMech.getBoardSizeY(); i++) {
         for (int j = 0; j < gMech.getBoardSizeX(); j++) {
@@ -88,6 +94,7 @@ void DrawScreen(void) {
 
     // Step 3: Render the board
     MacUILib_clearScreen();
+    
     MacUILib_printf("####################       Press P to increase speed, L to decrease. SPACE to exit, Control with WASD %d\n",body.getSize());
     for (int i = 0; i < gMech.getBoardSizeY(); i++) {
         MacUILib_printf("#");
@@ -99,6 +106,7 @@ void DrawScreen(void) {
     MacUILib_printf("####################\n");
 
     MacUILib_printf("Score: %d\n", gMech.getScore());
+    */
 }
 
 
@@ -111,7 +119,7 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     if (gMech.getLoseFlagStatus())
-    MacUILib_printf("you lose lsoer");
+    MacUILib_printf("you lose loser");
     //MacUILib_clearScreen();    
    // free(game);
     MacUILib_uninit();

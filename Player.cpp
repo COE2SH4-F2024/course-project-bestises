@@ -1,9 +1,9 @@
 #include "Player.h"
+#include "GameMechs.h"
 
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player()
 {
-    mainGameMechsRef = thisGMRef;
     myDir = STOP;
     playerPos = objPos(0,0,'O');
 
@@ -12,11 +12,15 @@ Player::Player(GameMechs* thisGMRef)
     // more actions to be included
 }
 
+void Player::setGmech(GameMechs* thisGMRef)
+{
+    mainGameMechsRef = thisGMRef;
+}
 
 Player::~Player()
 {
     // delete any heap members here
-    delete mainGameMechsRef;
+    //delete mainGameMechsRef; is this nessesary? is mainGameMechsRef not on stack?
     delete playerPosList;
 }
 
@@ -68,7 +72,9 @@ void Player::updatePlayerDir(char input)
             case 'o':
                 grow();    
                 break; 
-}}}
+        }
+    }
+}
 
 void Player::movePlayer() {
     int height = mainGameMechsRef->getBoardSizeY();

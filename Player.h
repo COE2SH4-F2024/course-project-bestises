@@ -23,7 +23,7 @@ class Player
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir(char input);
         void movePlayer();
-        void grow();
+        void grow(int x);
         int getsnakesize();
         void setGmech(GameMechs* thisGMRef);
 

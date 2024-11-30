@@ -70,7 +70,7 @@ void Player::updatePlayerDir(char input)
                 mainGameMechsRef->decreaseSpeed();
                 break; 
             case 'o':
-                grow();    
+                grow(1);    
                 break; 
         }
     }
@@ -101,8 +101,8 @@ void Player::movePlayer() {
 
 
 
-void Player::grow() {
-    mainGameMechsRef->incrementScore();
+void Player::grow(int x) {
+    mainGameMechsRef->incrementScore(x);
 }
 
 int Player::getsnakesize(){

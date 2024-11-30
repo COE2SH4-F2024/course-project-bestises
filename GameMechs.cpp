@@ -12,6 +12,8 @@ GameMechs::GameMechs()
     exitFlag = false;
     boardSizeX = 0;
     boardSizeY = 0;
+    eat = 0;
+    winFlag=false;
 }
 
 GameMechs::GameMechs(int boardX, int boardY, Player* playerRef)
@@ -55,9 +57,9 @@ int GameMechs::getScore() const
 return score;
 }
 
-void GameMechs::incrementScore()
+void GameMechs::incrementScore(int x)
 {
-    score++;
+    score+=x;
 }
 
 int GameMechs::getBoardSizeX() const
@@ -122,7 +124,7 @@ void GameMechs::clearBoard()
 }
 bool GameMechs::addBoard()
 {   
-    eat = false;
+    eat = 0;
     bool first = true;//draw head as another character
     objPosArrayList body = player->getPlayerBody();
     
@@ -146,9 +148,14 @@ bool GameMechs::addBoard()
     
     if (game[food.getYPos()][food.getXPos()]=='G'){
         // food.generateFood(7,17);
+        if (food.getFood()=='*')
+            eat= 1;
+        if (food.getFood()=='!')
+            eat = 2;
         while (game[food.getYPos()][food.getXPos()]!=' '){
-            food.generateFood(8,18);
-            eat = true;
+            food.generateFood(8,19);
+            
+            
             
             //game[food.getYPos()][food.getXPos()] = food.getFood();
         }
@@ -169,6 +176,14 @@ void GameMechs::drawScreen()
     MacUILib_printf("####################\n");
 
     MacUILib_printf("Speed: %d, Score: %d\n", speed, score);
+}
+
+void GameMechs::setWinFlag(){
+    winFlag=true;
+}
+
+bool GameMechs::getWinFlag(){
+    return winFlag;
 }
 
 // More methods should be added here

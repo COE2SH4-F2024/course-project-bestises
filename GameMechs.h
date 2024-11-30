@@ -19,6 +19,7 @@ class GameMechs
         char input;
         bool exitFlag;
         bool loseFlag;
+        bool winFlag;
         int score;
 
         int boardSizeX;
@@ -26,7 +27,7 @@ class GameMechs
 
         Food food;
         Player* player;
-        bool eat;
+        int eat;
         
         int speed;
         char game[9][18];
@@ -49,7 +50,7 @@ class GameMechs
         int getBoardSizeY() const;
         
         int getScore() const;
-        void incrementScore();
+        void incrementScore(int x);
         
         // More methods should be added here
         void increaseSpeed();//nealy added methods for speed of the game
@@ -58,6 +59,8 @@ class GameMechs
         void clearBoard();
         bool addBoard();
         void drawScreen();
+        void setWinFlag();
+        bool getWinFlag();
 };
 
 #endif

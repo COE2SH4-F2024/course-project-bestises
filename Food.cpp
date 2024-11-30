@@ -8,10 +8,10 @@
 
     options = new char[50];
     for (int i = 0; i<45;i++){
-        options[i] = '*';
+        options[i] = '!';
     }
     for (int i = 45; i<50;i++){
-        options[i] = '!';
+        options[i] = '*';
     }
     
     foo = '*';

@@ -8,15 +8,12 @@
 
 using namespace std;
 
-#define DELAY_CONST 100000
-
 void Initialize(void);
 void GetInput(void);
 void RunLogic(void);
 void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
-objPos snake = objPos();
 Player player = Player();
 GameMechs gMech = GameMechs(18,9,&player);
 
@@ -68,14 +65,13 @@ void DrawScreen(void) {
     gMech.clearBoard();
     eat = gMech.addBoard();
     if (eat==1){
-        player.grow(1);
+        player.grow(2);
     }
     if (eat==2){
-        player.grow(2);
+        player.grow(1);
+        player.grow(1);
         
     }
-    if(gMech.getScore()==161)
-    gMech.setWinFlag();
     MacUILib_clearScreen();
     gMech.drawScreen();
 }
@@ -90,9 +86,9 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     if (gMech.getLoseFlagStatus())
-    MacUILib_printf("you lose loser");
+        MacUILib_printf("you lose loser");
     if (gMech.getWinFlag())
-    MacUILib_printf("you win Winner %d Your Score is: ",gMech.getScore());
+        MacUILib_printf("you win Winner Your Score is: %d",gMech.getScore());
     //MacUILib_clearScreen();    
    // free(game);
     MacUILib_uninit();

@@ -122,29 +122,53 @@ void GameMechs::clearBoard()
         }
     }
 }
+void GameMechs::checkGameState()
+{
+    //checks the win/loss of the player
+    //note: MUST BE CALLED AFTER THE SNAKE IS ADDED TO GAME
+
+    //check collision
+    objPos head = player->getPlayerBody().getElement(0); 
+    if (game[head.pos->y][head.pos->x]=='O'){
+            loseFlag = true;
+            game[head.pos->y][head.pos->x] = 'X'; //show X to indicate dead       
+    }
+
+    //check win condiction
+    if(score>160){
+        winFlag = true; //you win at max score
+    }
+
+}
+
+void GameMechs::addSnake()
+{   
+    //detects collision and adds the snake to game[][]
+    //also 
+    objPosArrayList body = player->getPlayerBody();
+    for (int i = 0; i < body.getSize(); i++) {
+        objPos segment = body.getElement(i); //access each segment of snake
+        
+        if (i == 0){
+        //for the first element, add 'G', the head of the snake
+            game[segment.pos->y][segment.pos->x]='G';
+        }else{
+        //add rest of snake
+            game[segment.pos->y][segment.pos->x] = segment.getSymbol();
+        }
+    }
+
+}
 bool GameMechs::addBoard()
 {   
     eat = 0;
     bool first = true;//draw head as another character
-    objPosArrayList body = player->getPlayerBody();
+    //objPosArrayList body = player->getPlayerBody();
     
     game[food.getYPos()][food.getXPos()] = food.getFood();
-    for (int i = 0; i < body.getSize(); i++) {
-        objPos segment = body.getElement(i);
-        if (game[segment.pos->y][segment.pos->x]=='G'){
-            setLoseFlag();
-            game[segment.pos->y][segment.pos->x] = 'X';
-            
-            
-        }
-        else if (first){
-
-            game[segment.pos->y][segment.pos->x]='G';
-            first=false;
-        }
-    else{
-        game[segment.pos->y][segment.pos->x] = segment.getSymbol();}
-    }
+    addSnake();
+    checkGameState();
+    
     
     if (game[food.getYPos()][food.getXPos()]=='G'){
         // food.generateFood(7,17);

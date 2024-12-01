@@ -9,6 +9,7 @@ Player::Player()
 
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(playerPos);
+    snakeBodySymbol = 'O';
     // more actions to be included
 }
 
@@ -88,8 +89,11 @@ void Player::movePlayer() {
     if (myDir == LEFT) headPos->x = (headPos->x - 1 + width) % width;
     if (myDir == RIGHT) headPos->x = (headPos->x + 1) % width;
 
-    // Add updated head position to the list
-    playerPos.symbol = 'O';
+    // Add updated head position to the playerPos list
+
+    //note: the head of the snake being a special symbol is handled in gameMech
+    //the player object is only designed to modify and keep track of the position of the body of the snake
+    playerPos.symbol = snakeBodySymbol;
     playerPosList->insertHead(playerPos);
 
     // Remove the tail to maintain the correct length

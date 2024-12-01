@@ -57,6 +57,8 @@ class GameMechs
         void decreaseSpeed();
         void delay();
         void clearBoard();
+        void checkGameState();
+        void addSnake();
         bool addBoard();
         void drawScreen();
         void setWinFlag();

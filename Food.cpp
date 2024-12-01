@@ -5,16 +5,8 @@
 {
     // foodPos.setObjPos(x, y, symbol);
     // mainGameMechsRef = GMref;
-
-    options = new char[50];
-    for (int i = 0; i<45;i++){
-        options[i] = '!';
-    }
-    for (int i = 45; i<50;i++){
-        options[i] = '*';
-    }
     
-    foo = '*';
+    foodSymbol = '*';
     eat = false;
     
     x = 5;
@@ -25,8 +17,7 @@
 }
 
 Food::~Food() {
-    // No need to delete foodPos since on the stack
-    delete[] options;
+    // No need to delete
 }
 
 int Food::getXPos() const {
@@ -45,12 +36,11 @@ void Food::eatFood() {
     srand(time(0));
     x = rand()%xmax;
     y=rand()%ymax;
-    foo = options[rand()%50];
 
  }
 
  char Food::getFood() const{
-    return foo;
+    return foodSymbol;
  }
 
  bool Food::getEatFlag() const{

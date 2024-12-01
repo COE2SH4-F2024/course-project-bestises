@@ -25,10 +25,9 @@ class Food
         // Player* playerRef;
         // GameMechs* mainGameMechsRef;
         
-        char* options;
         int x;
         int y;
-        char foo;
+        char foodSymbol;
         bool eat;
         bool first;
 

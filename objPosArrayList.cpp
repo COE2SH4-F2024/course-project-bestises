@@ -112,3 +112,8 @@ objPos objPosArrayList::getElement(int index) const
 
     return aList[index];
 }
+
+void objPosArrayList::replaceElement(int index, objPos element)
+{
+    aList[index] = element;
+}

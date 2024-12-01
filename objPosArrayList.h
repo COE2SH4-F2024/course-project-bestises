@@ -26,6 +26,8 @@ class objPosArrayList
         objPos getHeadElement() const;
         objPos getTailElement() const;
         objPos getElement(int index) const;
+        
+        void replaceElement(int index, objPos element);
 };
 
 #endif

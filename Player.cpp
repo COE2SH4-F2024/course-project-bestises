@@ -10,6 +10,7 @@ Player::Player()
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(playerPos);
     snakeBodySymbol = 'O';
+    currentSnakeLength = 0;
     // more actions to be included
 }
 
@@ -72,6 +73,9 @@ void Player::updatePlayerDir(char input)
                 break; 
             case 'o':
                 grow(1);    
+                break;
+            case 'i':
+                shorten(1);
                 break; 
         }
     }
@@ -97,7 +101,7 @@ void Player::movePlayer() {
     playerPosList->insertHead(playerPos);
 
     // Remove the tail to maintain the correct length
-    if (playerPosList->getSize() > mainGameMechsRef->getScore() + 1) {
+    if (playerPosList->getSize() > currentSnakeLength + 1) {
         playerPosList->removeTail();
     }
 }
@@ -105,8 +109,20 @@ void Player::movePlayer() {
 
 
 
-void Player::grow(int x) {
-    mainGameMechsRef->incrementScore(x);
+void Player::grow(int amount) {
+    //mainGameMechsRef->incrementScore(x);
+    currentSnakeLength+=amount;
+}
+
+void Player::shorten(int amount){
+    //only shorten when possible 
+    for (int i = 0; i < amount; i++){
+        //remove tail has to be implemented separately cuz need to remove twice when shortened
+        if (currentSnakeLength > 0){
+            currentSnakeLength--;
+            playerPosList->removeTail();
+        }
+    }
 }
 
 int Player::getsnakesize(){

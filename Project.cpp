@@ -63,7 +63,10 @@ void RunLogic(void)
 void DrawScreen(void) {
     int eat = 0;
     gMech.clearBoard();
-    eat = gMech.addBoard();
+    gMech.addSnake();
+    gMech.addFood();
+    gMech.checkGameState();
+    /*
     if (eat==1){
         player.grow(2);
     }
@@ -72,6 +75,7 @@ void DrawScreen(void) {
         player.grow(1);
         
     }
+    */
     MacUILib_clearScreen();
     gMech.drawScreen();
 }

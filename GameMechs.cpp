@@ -1,9 +1,9 @@
 #include "GameMechs.h"
 #include "Player.h"
-#include "Food.h"
+#include "FoodBin.h"
 #include <random>
 
-
+/*
 GameMechs::GameMechs()
 {
     input = 0;
@@ -14,20 +14,31 @@ GameMechs::GameMechs()
     boardSizeY = 0;
     eat = 0;
     winFlag=false;
+    foodBin();
 }
+*/
 
 GameMechs::GameMechs(int boardX, int boardY, Player* playerRef)
 {
+    srand(time(0));
     boardSizeX = boardX;
     boardSizeY = boardY;
     input = 0;
     score = 0;
+    numFoods = 3;
     speed = 1;
     loseFlag = false;
     exitFlag = false;
     player = playerRef; //assign member variable player to the argument playerRef
-    //Food food = Food();
-    eat = false;
+    clearBoard(); //initialize game
+    foodBin.setPlayerRef(playerRef);//provide player ref to foodbin so it can change length of snake
+    foodBin.initializeFoodList(numFoods);
+
+    for (int i = 0; i < numFoods; i++){
+        foodBin.generateNewFood(game, boardSizeX,boardSizeY,i);
+    }
+    foodBin.generateNewFood(game, boardSizeX,boardSizeY,0);
+    foodBin.generateNewFood(game, boardSizeX,boardSizeY,2);
 }
 
 // do you need a destructor?
@@ -127,11 +138,19 @@ void GameMechs::checkGameState()
     //checks the win/loss of the player
     //note: MUST BE CALLED AFTER THE SNAKE IS ADDED TO GAME
 
-    //check collision
-    objPos head = player->getPlayerBody().getElement(0); 
-    if (game[head.pos->y][head.pos->x]=='O'){
-            loseFlag = true;
-            game[head.pos->y][head.pos->x] = 'X'; //show X to indicate dead       
+    //check collision with self
+    objPos head = player->getPlayerBody().getElement(0);
+    int x = head.pos->x;
+    int y = head.pos->y;
+    char symbol = game[y][x];
+    if (symbol=='O'){
+        loseFlag = true;
+        symbol = 'X'; //show X to indicate dead       
+    }
+    else if (symbol!=' '&&symbol!='G'){ //if not the head and not an empty space, must be food!!
+        int index = foodBin.eatFood(objPos(x, y, symbol));
+        foodBin.generateNewFood(game, boardSizeX,boardSizeY,index);
+        game[y][x] = 'G';
     }
 
     //check win condiction
@@ -159,32 +178,22 @@ void GameMechs::addSnake()
     }
 
 }
-bool GameMechs::addBoard()
+void GameMechs::addFood()
 {   
-    eat = 0;
-    bool first = true;//draw head as another character
-    //objPosArrayList body = player->getPlayerBody();
-    
-    game[food.getYPos()][food.getXPos()] = food.getFood();
-    addSnake();
-    checkGameState();
-    
-    
-    if (game[food.getYPos()][food.getXPos()]=='G'){
-        // food.generateFood(7,17);
-        if (food.getFood()=='*')
-            eat= 1;
-        if (food.getFood()=='!')
-            eat = 2;
-        while (game[food.getYPos()][food.getXPos()]!=' '){
-            food.generateFood(8,19);
-            
-            
-            
-            //game[food.getYPos()][food.getXPos()] = food.getFood();
-        }
+    objPosArrayList foodArrayList = foodBin.getFoodPosList();
+    /*
+    for (int i = 0; i < 3;i++){
+        objPos food = foodArrayList.getElement(i);
+        int y = food.pos->y;
+        int x = food.pos->x;
+        char sym = food.getSymbol();
     }
-    return eat;
+    */
+
+    for (int i = 0; i < foodArrayList.getSize();i++){
+        objPos food = foodArrayList.getElement(i);
+        game[food.pos->y][food.pos->x] = food.getSymbol();
+    }
 }
 
 void GameMechs::drawScreen()
@@ -200,6 +209,12 @@ void GameMechs::drawScreen()
     MacUILib_printf("####################\n");
 
     MacUILib_printf("Speed: %d, Score: %d\n", speed, score);
+    
+    
+    for (int i = 0; i < foodBin.getFoodPosList().getSize(); i++) {
+        objPos food = foodBin.getFoodPosList().getElement(i);
+        printf("x=%d, y=%d, symbol = %c\n", food.pos->x, food.pos->y, food.getSymbol());
+    }
 }
 
 void GameMechs::setWinFlag(){

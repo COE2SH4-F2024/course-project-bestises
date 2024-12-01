@@ -23,7 +23,8 @@ class Player
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir(char input);
         void movePlayer();
-        void grow(int x);
+        void grow(int amount);
+        void shorten(int amount);
         int getsnakesize();
         void setGmech(GameMechs* thisGMRef);
 
@@ -34,6 +35,7 @@ class Player
         objPos playerPos; // Upgrade this in iteration 3.       
         enum Dir myDir;
         char snakeBodySymbol;
+        int currentSnakeLength; //this keeps track of how long the snake should be
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;

@@ -81,7 +81,7 @@ void Player::updatePlayerDir(char input)
     }
 }
 
-void Player::movePlayer() {
+void Player::updatePlayer() {
     
     int height = mainGameMechsRef->getBoardSizeY();
     int width = mainGameMechsRef->getBoardSizeX();
@@ -103,6 +103,11 @@ void Player::movePlayer() {
     // Remove the tail to maintain the correct length
     if (playerPosList->getSize() > currentSnakeLength + 1) {
         playerPosList->removeTail();
+    }
+
+    if (currentSnakeLength > 160){
+        //secret win condition!!! very sneaky so it is not in game mech
+        mainGameMechsRef->setWinFlag();
     }
 }
 

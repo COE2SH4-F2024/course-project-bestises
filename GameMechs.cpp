@@ -3,21 +3,6 @@
 #include "FoodBin.h"
 #include <random>
 
-/*
-GameMechs::GameMechs()
-{
-    input = 0;
-    score = 0;
-    loseFlag = false;
-    exitFlag = false;
-    boardSizeX = 0;
-    boardSizeY = 0;
-    eat = 0;
-    winFlag=false;
-    foodBin();
-}
-*/
-
 GameMechs::GameMechs(int boardX, int boardY, Player* playerRef)
 {
     srand(time(0));
@@ -32,6 +17,7 @@ GameMechs::GameMechs(int boardX, int boardY, Player* playerRef)
     player = playerRef; //assign member variable player to the argument playerRef
     clearBoard(); //initialize game
     foodBin.setPlayerRef(playerRef);//provide player ref to foodbin so it can change length of snake
+    foodBin.setGMechRef(this);
     foodBin.initializeFoodList(numFoods);
 
     for (int i = 0; i < numFoods; i++){
@@ -133,7 +119,7 @@ void GameMechs::clearBoard()
         }
     }
 }
-void GameMechs::checkGameState()
+void GameMechs::checkCollision()
 {
     //checks the win/loss of the player
     //note: MUST BE CALLED AFTER THE SNAKE IS ADDED TO GAME
@@ -151,11 +137,6 @@ void GameMechs::checkGameState()
         int index = foodBin.eatFood(objPos(x, y, symbol));
         foodBin.generateNewFood(game, boardSizeX,boardSizeY,index);
         game[y][x] = 'G';
-    }
-
-    //check win condiction
-    if(score>160){
-        winFlag = true; //you win at max score
     }
 
 }
@@ -181,14 +162,6 @@ void GameMechs::addSnake()
 void GameMechs::addFood()
 {   
     objPosArrayList foodArrayList = foodBin.getFoodPosList();
-    /*
-    for (int i = 0; i < 3;i++){
-        objPos food = foodArrayList.getElement(i);
-        int y = food.pos->y;
-        int x = food.pos->x;
-        char sym = food.getSymbol();
-    }
-    */
 
     for (int i = 0; i < foodArrayList.getSize();i++){
         objPos food = foodArrayList.getElement(i);
@@ -208,13 +181,13 @@ void GameMechs::drawScreen()
     }
     MacUILib_printf("####################\n");
 
-    MacUILib_printf("Speed: %d, Score: %d\n", speed, score);
-    
-    
+    MacUILib_printf("Speed: %d, Score: %d\n", speed, score);   
+    /*
     for (int i = 0; i < foodBin.getFoodPosList().getSize(); i++) {
         objPos food = foodBin.getFoodPosList().getElement(i);
         printf("x=%d, y=%d, symbol = %c\n", food.pos->x, food.pos->y, food.getSymbol());
     }
+    */
 }
 
 void GameMechs::setWinFlag(){

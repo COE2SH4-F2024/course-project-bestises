@@ -57,7 +57,7 @@ class GameMechs
         void decreaseSpeed();
         void delay();
         void clearBoard();
-        void checkGameState();
+        void checkCollision();
         void addSnake();
         void addFood();
         void drawScreen();

@@ -1,6 +1,7 @@
 #include "FoodBin.h"
 #include <random>
 #include <time.h>
+#include "GameMechs.h"
 
 FoodBin::FoodBin()//int x, int y, char symbol, GameMechs* GMref)
 {
@@ -19,16 +20,12 @@ void FoodBin::setPlayerRef(Player* PRef)
 {
    //this method sets the player ref and initializes things that require the player ref
    mainPlayerRef = PRef;
+}
 
-   /*
-   //since the generate new food function replaces elements in the array list, must first initialize the array list
-   objPos placeHolder;
-   for (int i = 0; i < 3; i++){
-      foodPosList.insertHead(placeHolder);
-      generateNewFood()
-   }
-   */
-
+void FoodBin::setGMechRef(GameMechs* gMechRef)
+{
+   //this method sets the player ref and initializes things that require the player ref
+   mainGameMechsRef = gMechRef;
 }
 
 void FoodBin::initializeFoodList(int numFoods){
@@ -47,15 +44,19 @@ int FoodBin::eatFood(objPos food) {
    case '*':
       //normal food, grows by one
       mainPlayerRef->grow(1);
+      mainGameMechsRef->incrementScore(1);
       break;
    
    case 's':
       //special food that shorttens by 2 and increases score by 2
       mainPlayerRef->shorten(2);
+      mainGameMechsRef->incrementScore(2);
       break;
    case 'S':
       //super special food that resets the length of the snake and is worth 3 points
       mainPlayerRef->shorten(mainPlayerRef->getsnakesize());
+      mainGameMechsRef->incrementScore(3);
+      break;
    }
 
    //find index of food
@@ -78,15 +79,15 @@ void FoodBin::generateNewFood(char game[9][18], int width, int height, int array
    while (game[foodY][foodX]!=' '); //keep generating coordinates until [y][x] is a blank space
 
    //decide on type of food
-   int randVal = rand()%10;
+   int randVal = rand()%100;
 
-   if(randVal < 7){
-      symbol = '*'; //common food with 7/10 chance
-   }else if (randVal < 9)
+   if(randVal < 90){
+      symbol = '*'; //common food with 90% chance
+   }else if (randVal < 99)
    {
-      symbol = 's'; //rare food with 2/10 chance
+      symbol = 's'; //rare food with 9% chance
    }else{
-      symbol = 'S'; //super rare food with 1/10 chance
+      symbol = 'S'; //super rare food with 1% chance
    }
    //put into array list of foods
    foodPosList.replaceElement(arrayIndex, objPos(foodX, foodY, symbol));

@@ -22,7 +22,7 @@ class Player
         objPosArrayList getPlayerBody();
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir(char input);
-        void movePlayer();
+        void updatePlayer();
         void grow(int amount);
         void shorten(int amount);
         int getsnakesize();

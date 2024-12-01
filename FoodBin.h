@@ -6,6 +6,8 @@
 #include "Player.h"
 //this class manages all the foods available
 
+class GameMechs; //avoid circular dependency
+
 class FoodBin
 {
     public:
@@ -14,6 +16,7 @@ class FoodBin
         objPosArrayList getFoodPosList() const;
         bool getEatFlag() const;
         void setPlayerRef(Player* PRef);
+        void setGMechRef(GameMechs* gMechRef);
         void initializeFoodList(int numFoods);
         void setEatflagTrue();
         void setEatFlagFalse();

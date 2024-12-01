@@ -57,7 +57,7 @@ void GetInput(void)
 
 void RunLogic(void)
 { 
-    player.movePlayer();
+    player.updatePlayer();
 }
 
 void DrawScreen(void) {
@@ -65,17 +65,7 @@ void DrawScreen(void) {
     gMech.clearBoard();
     gMech.addSnake();
     gMech.addFood();
-    gMech.checkGameState();
-    /*
-    if (eat==1){
-        player.grow(2);
-    }
-    if (eat==2){
-        player.grow(1);
-        player.grow(1);
-        
-    }
-    */
+    gMech.checkCollision();
     MacUILib_clearScreen();
     gMech.drawScreen();
 }
@@ -93,7 +83,5 @@ void CleanUp(void)
         MacUILib_printf("you lose loser");
     if (gMech.getWinFlag())
         MacUILib_printf("you win Winner Your Score is: %d",gMech.getScore());
-    //MacUILib_clearScreen();    
-   // free(game);
     MacUILib_uninit();
 }

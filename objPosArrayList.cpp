@@ -4,7 +4,7 @@
 
 objPosArrayList::objPosArrayList()
 {
-    arrayCapacity = ARRAY_MAX_CAP; 
+    arrayCapacity = ARRAY_MAX_CAP; //200
     listSize = 0;
     aList = new objPos[arrayCapacity];
 }
@@ -57,10 +57,10 @@ void objPosArrayList::insertHead(objPos thisPos)
     
     for (int i = listSize; i > 0; --i)
     {
-        aList[i] = aList[i - 1];
+        aList[i] = aList[i - 1];//move elements one down
     }
 
-    aList[0] = thisPos;
+    aList[0] = thisPos;//insert head at current location
     ++listSize;
 }
 
@@ -78,7 +78,7 @@ void objPosArrayList::removeHead()
     
     for (int i = 0; i < listSize - 1; ++i)
     {
-        aList[i] = aList[i + 1];
+        aList[i] = aList[i + 1];//shift body towards head
     }
 
     --listSize;

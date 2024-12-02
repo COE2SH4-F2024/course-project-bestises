@@ -165,7 +165,7 @@ void GameMechs::addFood()
 
     for (int i = 0; i < foodArrayList.getSize();i++){
         objPos food = foodArrayList.getElement(i);
-        game[food.pos->y][food.pos->x] = food.getSymbol();
+        game[food.pos->y][food.pos->x] = food.getSymbol();//each position is the food symbol
     }
 }
 

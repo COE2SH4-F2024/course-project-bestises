@@ -71,12 +71,12 @@ void Player::updatePlayerDir(char input)
             case 'l':
                 mainGameMechsRef->decreaseSpeed();
                 break; 
-            case 'o':
-                grow(1);    
-                break;
-            case 'i':
-                shorten(1);
-                break; 
+            //case 'o':
+                //grow(1);    //Debug tool
+                //break;
+            // case 'i':
+            //     shorten(1);
+            //     break; 
         }
     }
 }

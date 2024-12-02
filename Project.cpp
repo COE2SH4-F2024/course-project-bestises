@@ -61,7 +61,7 @@ void RunLogic(void)
 }
 
 void DrawScreen(void) {
-    int eat = 0;
+    
     gMech.clearBoard();
     gMech.addSnake();
     gMech.addFood();
@@ -80,8 +80,8 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     if (gMech.getLoseFlagStatus())
-        MacUILib_printf("you lose loser");
+        MacUILib_printf("You lose loser");
     if (gMech.getWinFlag())
-        MacUILib_printf("you win Winner Your Score is: %d",gMech.getScore());
+        MacUILib_printf("You win Winner. Your Score is: %d",gMech.getScore());
     MacUILib_uninit();
 }

@@ -21,8 +21,8 @@ class Player
         ~Player();
         objPosArrayList getPlayerBody();
         objPos getPlayerPos() const; // Upgrade this in iteration 3.       
-        void updatePlayerDir(char input);
-        void updatePlayer();
+        void updatePlayerDir(char input); //updates the direction of snake
+        void updatePlayer(); //update the snake's position and prarameters related to the snake
         void grow(int amount);
         void shorten(int amount);
         int getsnakesize();

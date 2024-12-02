@@ -64,11 +64,11 @@ void Player::updatePlayerDir(char input)
                     myDir = RIGHT;
                 }
                 break;
-            case 'p':
+            case '.':
                 mainGameMechsRef->increaseSpeed();
                 break;
 
-            case 'l':
+            case ',':
                 mainGameMechsRef->decreaseSpeed();
                 break; 
             //case 'o':

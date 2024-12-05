@@ -171,7 +171,7 @@ void GameMechs::addFood()
 
 void GameMechs::drawScreen()
 {
-    MacUILib_printf("####################       Press P to increase speed, L to decrease. SPACE to exit, Control with WASD\n");
+    MacUILib_printf("####################\n");
     for (int i = 0; i < boardSizeY; i++) {
         MacUILib_printf("#");
         for (int j = 0; j < boardSizeX; j++) {
@@ -180,14 +180,12 @@ void GameMechs::drawScreen()
         MacUILib_printf("#\n");
     }
     MacUILib_printf("####################\n");
-
-    MacUILib_printf("Speed: %d, Score: %d\n", speed, score);   
-    /*
-    for (int i = 0; i < foodBin.getFoodPosList().getSize(); i++) {
-        objPos food = foodBin.getFoodPosList().getElement(i);
-        printf("x=%d, y=%d, symbol = %c\n", food.pos->x, food.pos->y, food.getSymbol());
-    }
-    */
+    MacUILib_printf("\nPress < to decrease speed, > to increase speed. Control with WASD\n");
+    MacUILib_printf("* is worth 1 pt and increase the snake length by one\n");
+    MacUILib_printf("s is worth 2 pts and reduces the snake length by two\n");
+    MacUILib_printf("S is worth 3 pts and resets the length of the snake\n");
+    MacUILib_printf("\nSpeed: %d, Score: %d\n", speed, score); 
+    MacUILib_printf("\nPress space to EXIT\n");  
 }
 
 void GameMechs::setWinFlag(){
